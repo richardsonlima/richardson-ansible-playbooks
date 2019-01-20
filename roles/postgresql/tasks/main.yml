@@ -1,0 +1,35 @@
+---
+- name: Ensure bash, openssl and libssl latest version
+  apt: name: {{ item }} update_cache=true state=latest
+  with_items:
+     - bash
+     - openssl
+     - libssl-dev
+     - libssl-doc
+  tag: packages
+
+- name: Install PostgreSQL
+  apt: name: {{ item }} update_cache=true state=installed
+  with_items:
+    - postgresql
+    - postgresql-cotrib
+    - libpq-dev
+    - python-psycopq2
+  tags: package-postgresql
+
+- name: Ensure postgresql service is running
+  service: name=postgresql state=started enabled=yes
+
+- name: Ensure database is created
+  sudo_user: postgres
+  postgresql_user: db={{ db_name }}
+                   name={{ db_user }} 
+                   password={{ db_password }}
+                   priv=ALL
+                   state=present
+
+- name: Ensure user doesn't have unnecessary privileges
+  sudo_user: postgres
+  postgresql_user: name={{ db_user }}
+                   role_attr_flags=NOSUPERUSER, NOCREATEDB
+                   state=pr
