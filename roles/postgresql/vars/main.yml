@@ -1,4 +1,5 @@
 ---
-db_user: dbusername
-db_name: dbname
-db_password: dbpassword
+db_user: ilms_user 
+db_name: ilms
+db_password: iP$as3413s
+
