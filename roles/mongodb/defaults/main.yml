@@ -1,0 +1,31 @@
+---
+
+flags:
+  - none
+
+mongo_version:          "4.0"
+
+admin:
+  user:                 "admin"
+  password:             ""
+
+auth_db:                "admin"
+
+cert_path:
+  csr:
+    remote:     ""
+    local:      ""
+  key:
+    remote:     ""
+    local:      ""
+  cert:
+    remote:     ""
+    local:      ""
+  chain:
+    remote:     ""
+    local:      ""
+  intermediate:
+    remote:     ""
+    local:      ""
+  dhparam:     
+    remote:     """

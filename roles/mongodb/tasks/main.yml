@@ -1,0 +1,29 @@
+---
+
+- name: Prepare Variables
+  include_tasks: prep-vars.yml
+  when: cluster_role is defined
+
+- name: Install Packages
+  include_tasks: install-packages.yml
+  when: ((['install'] | intersect(flags)) | length > 0)
+
+- name: Reset Storage
+  include_tasks: reset-storage.yml
+  when: ((['reset-storage'] | intersect(flags)) | length > 0)
+
+- name: Save Configuration
+  include_tasks: save-configuration.yml
+  when: ((['save-config'] | intersect(flags)) | length > 0)
+
+- name: Init Replica Set
+  include_tasks: init-replica-set.yml
+  when: ((['init-replica-set'] | intersect(flags)) | length > 0)
+
+- name: Add Replica Set to Cluster
+  include_tasks: add-replica-set.yml
+  when: ((['add-replica-set'] | intersect(flags)) | length > 0)
+
+- name: Create Database
+  include_tasks: db-create.yml
+  when: ((['db_create'] | intersect(flags)) | length > 0)
